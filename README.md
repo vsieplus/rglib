@@ -1,8 +1,8 @@
+# rglib
+
 [![Windows build](https://github.com/vsieplus/rglib/actions/workflows/cmake-windows-release.yml/badge.svg)](https://github.com/vsieplus/rglib/actions/workflows/cmake-windows-release.yml)
 [![Linux build](https://github.com/vsieplus/rglib/actions/workflows/cmake-linux-release.yml/badge.svg)](https://github.com/vsieplus/rglib/actions/workflows/cmake-linux-release.yml)
 [![MacOS build](https://github.com/vsieplus/rglib/actions/workflows/cmake-macos-release.yml/badge.svg)](https://github.com/vsieplus/rglib/actions/workflows/cmake-macos-release.yml)
-
-# rglib
 
 `rglib` is a simple C++ library for rhythm game development, providing functionality for common tasks such as:
 
