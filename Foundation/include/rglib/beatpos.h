@@ -24,7 +24,7 @@ bool operator!=(const BeatPos& lhs, const BeatPos& rhs);
 bool operator>(const BeatPos& lhs, const BeatPos& rhs);
 bool operator<=(const BeatPos& lhs, const BeatPos& rhs);
 bool operator>=(const BeatPos& lhs, const BeatPos& rhs);
-    
+
 } // rglib
 
 #endif // BEATPOS_H
