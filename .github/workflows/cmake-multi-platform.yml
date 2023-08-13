@@ -67,18 +67,10 @@ jobs:
     - name: Install Catch2
       shell: bash
       run: |
-        if [ "$RUNNER_OS" == "Windows" ]; then
-          git clone https://github.com/Microsoft/vcpkg.git
-          cd vcpkg
-          ./bootstrap-vcpkg.sh
-          ./vcpkg integrate install
-          ./vcpkg install catch2
-        else
-          git clone https://github.com/catchorg/Catch2.git
-          cd Catch2
-          cmake -Bbuild -H. -DBUILD_TESTING=OFF
-          sudo cmake --build build/ --target install 
-        fi
+        git clone https://github.com/catchorg/Catch2.git
+        cd Catch2
+        cmake -Bbuild -H. -DBUILD_TESTING=OFF
+        sudo cmake --build build/ --target install 
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
