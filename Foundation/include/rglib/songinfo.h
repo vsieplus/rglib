@@ -1,5 +1,5 @@
-#ifndef SONGINFO_HPP
-#define SONGINFO_HPP
+#ifndef SONGINFO_H
+#define SONGINFO_H
 
 #include <filesystem>
 namespace fs = std::filesystem;
@@ -34,4 +34,4 @@ struct SongInfo {
 
 } // rglib
 
-#endif // SONGINFO_HPP
+#endif // SONGINFO_H

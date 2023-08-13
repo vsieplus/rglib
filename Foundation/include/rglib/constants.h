@@ -1,5 +1,5 @@
-#ifndef CONSTANTS_HPP
-#define CONSTANTS_HPP
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 namespace rglib {
 namespace constants {
@@ -9,4 +9,4 @@ namespace constants {
 } // constants
 } // rglib
 
-#endif // CONSTANTS_HPP
+#endif // CONSTANTS_H
