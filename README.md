@@ -6,6 +6,9 @@
 * Calculating note timings
 * (Precise input handling)
 * (Tracking song position)
+* 
+
+## Installation
 
 ## Examples
 

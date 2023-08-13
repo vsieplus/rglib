@@ -2,7 +2,7 @@
 
 set(CMAKE_CXX_STANDARD 17)
 
-project(rglib VERSION 0.1.0)
+project(rglib VERSION 1.0.0 DESCRIPTION "C++ library for rhythm game development")
 
 message(STATUS "Project Name: ${CMAKE_PROJECT_NAME}")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")

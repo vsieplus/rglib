@@ -1,7 +1,8 @@
 cmake_minimum_required (VERSION 3.8)
 
-file(GLOB_RECURSE SRCS "src/*.cpp")
-add_executable(tests ${SRCS})
+add_executable(tests
+    "src/beatpos_test.cpp"
+)
 
 target_include_directories(tests
     PUBLIC ${CMAKE_SOURCE_DIR}/Foundation/include
