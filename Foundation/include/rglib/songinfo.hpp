@@ -1,0 +1,35 @@
+#ifndef SONGINFO_HPP
+#define SONGINFO_HPP
+
+#include <filesystem>
+namespace fs = std::filesystem;
+
+#include <string>
+
+namespace rglib {
+
+struct SongInfo {
+    enum class FileFormat{
+        INI,
+        JSON,
+        UNKNOWN,
+    };
+
+    SongInfo(fs::path filepath, FileFormat songinfoFormat);
+
+    void save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat);
+
+    float previewStart{};
+    float previewStop{};
+
+    std::string title{};
+    std::string artist{};
+    std::string genre{};
+
+    fs::path musicFilepath{};
+    fs::path artFilepath{};
+};
+
+} // rglib
+
+#endif // SONGINFO_HPP
