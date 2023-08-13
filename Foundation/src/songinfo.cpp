@@ -1,4 +1,4 @@
-#include "rglib/songinfo.hpp"
+#include "rglib/songinfo.h"
 
 namespace rglib {
 

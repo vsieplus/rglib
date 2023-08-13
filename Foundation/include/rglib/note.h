@@ -1,0 +1,1 @@
+#ifndef NOTE_HPP
