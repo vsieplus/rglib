@@ -23,7 +23,7 @@ cmake --build .
 By default only static libraries are built. To build shared libraries, you can append `-DBUILD_SHARED_LIBS=1` to the end of `cmake .. `. Once built, you can complete installation with
 
 ```bash
-cmake --install .
+sudo cmake --install .
 ```
 
 ## Examples

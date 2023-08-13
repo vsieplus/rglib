@@ -23,10 +23,27 @@ target_include_directories(${CMAKE_PROJECT_NAME}
     PUBLIC ${CMAKE_SOURCE_DIR}/include/
 )
 
-set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
-    VERSION ${PROJECT_VERSION}
+set(HDRS
+    include/rglib/beatpos.h
+    include/rglib/chartinfo.h
+    include/rglib/constants.h
+    include/rglib/notesplit.h
+    include/rglib/songinfo.h
+    include/rglib/songpos.h
 )
 
-add_subdirectory(tests)
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${HDRS}")
 
+# pkg-config setup
+configure_file(cmake/rglib.pc.in rglib.pc @ONLY)
+
+include(GNUInstallDirs)
+install(TARGETS ${CMAKE_PROJECT_NAME}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/rglib)
+install(FILES ${CMAKE_BINARY_DIR}/rglib.pc
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
+add_subdirectory(tests)
 enable_testing()
