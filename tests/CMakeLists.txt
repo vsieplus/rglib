@@ -5,7 +5,7 @@ add_executable(tests
 )
 
 target_include_directories(tests
-    PUBLIC ${CMAKE_SOURCE_DIR}/Foundation/include
+    PUBLIC ${CMAKE_SOURCE_DIR}/include
 )
 
 find_package(Catch2 3 REQUIRED)

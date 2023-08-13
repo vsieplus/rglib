@@ -11,6 +11,22 @@ message(STATUS "System name: ${CMAKE_SYSTEM_NAME}")
 message(STATUS "Using CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
 message(STATUS "Using CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 
-enable_testing()
+add_library(${CMAKE_PROJECT_NAME} 
+    src/beatpos.cpp
+    src/chartinfo.cpp
+    src/notesplit.cpp
+    src/songinfo.cpp
+    src/songpos.cpp
+)
 
-add_subdirectory(Foundation)
+target_include_directories(${CMAKE_PROJECT_NAME}
+    PUBLIC ${CMAKE_SOURCE_DIR}/include/
+)
+
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+    VERSION ${PROJECT_VERSION}
+)
+
+add_subdirectory(tests)
+
+enable_testing()

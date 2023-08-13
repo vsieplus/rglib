@@ -10,6 +10,14 @@
 
 ## Installation
 
+### Windows
+
+...
+
+### Linux, MacOS
+
+...
+
 ## Examples
 
 ```cpp
