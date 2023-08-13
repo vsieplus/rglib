@@ -1,5 +1,5 @@
-#ifndef NOTE_H
-#define NOTE_H
+#ifndef NOTESPLIT_H
+#define NOTESPLIT_H
 
 namespace rglib {
 
@@ -19,6 +19,8 @@ enum class NoteSplit {
     NINETYSIXTH,
 };
 
+NoteSplit computeNoteSplit(int noteSplitNumerator, int noteSplitDenominator);
+
 } // rglib
 
-#endif // NOTE_H
+#endif // NOTESPLIT_H
