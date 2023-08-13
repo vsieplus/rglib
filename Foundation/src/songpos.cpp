@@ -3,16 +3,16 @@
 namespace rglib {
 
 void SongPos::start() {
-    started { true };
-    paused{ false };
+    started = true;
+    paused = false;
 }
 
 void SongPos::stop() {
-    absTime{ 0.0 };
-    absBeat{ 0.0 };
+    absTime = 0.0;
+    absBeat = 0.0;
 
-    started{ false };
-    paused{ false };
+    started = false;
+    paused = false;
 }
 
 void SongPos::pause() {
