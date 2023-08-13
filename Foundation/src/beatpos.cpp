@@ -6,11 +6,11 @@ namespace rglib {
 
 BeatPos operator+(const BeatPos& lhs, const BeatPos& rhs) {
     // find lcd of lhs / rhs measureSplit
-    int measureSplit = std::lcm(lhs.measureSplit, rhs.measureSplit);
+    auto measureSplit = std::lcm(lhs.measureSplit, rhs.measureSplit);
 
     // scale split accordingly
-    int lhsSplit = lhs.split * (measureSplit / lhs.measureSplit);
-    int rhsSplit = rhs.split * (measureSplit / rhs.measureSplit);
+    auto lhsSplit = lhs.split * (measureSplit / lhs.measureSplit);
+    auto rhsSplit = rhs.split * (measureSplit / rhs.measureSplit);
 
     // treat beatpos as a mixed number, compute accordingly
     // measure + split / measureSplit
@@ -22,16 +22,16 @@ BeatPos operator+(const BeatPos& lhs, const BeatPos& rhs) {
         split %= measureSplit;
     }
 
-    return BeatPos{ measure, measureSplit, split };
+    return BeatPos{ measure, split, measureSplit };
 }
 
 BeatPos operator-(const BeatPos& lhs, const BeatPos& rhs) {
     // find lcd of lhs / rhs measureSplit
-    int measureSplit = std::lcm(lhs.measureSplit, rhs.measureSplit);
+    auto measureSplit = std::lcm(lhs.measureSplit, rhs.measureSplit);
 
     // scale split accordingly
-    int lhsSplit = lhs.split * (measureSplit / lhs.measureSplit);
-    int rhsSplit = rhs.split * (measureSplit / rhs.measureSplit);
+    auto lhsSplit = lhs.split * (measureSplit / lhs.measureSplit);
+    auto rhsSplit = rhs.split * (measureSplit / rhs.measureSplit);
 
     auto measure = lhs.measure - rhs.measure;
     auto split = lhsSplit - rhsSplit;
@@ -41,13 +41,21 @@ BeatPos operator-(const BeatPos& lhs, const BeatPos& rhs) {
         split += measureSplit;
     }
 
-    return BeatPos{ measure, measureSplit, split };
+    return BeatPos{ measure, split , measureSplit };
 }
 
 bool operator==(const BeatPos& lhs, const BeatPos& rhs) {
-    return lhs.measure == rhs.measure
-        && lhs.split == rhs.split
-        && lhs.measureSplit == rhs.measureSplit;
+    bool equalSplit = lhs.measureSplit == rhs.measureSplit;
+    
+    if (lhs.measureSplit > 0 && rhs.measureSplit > 0) {
+        auto measureSplit = std::lcm(lhs.measureSplit, rhs.measureSplit);
+        auto lhsSplit = lhs.split * (measureSplit / lhs.measureSplit);
+        auto rhsSplit = rhs.split * (measureSplit / rhs.measureSplit);
+
+        equalSplit = lhsSplit == rhsSplit;
+    }
+
+    return lhs.measure == rhs.measure && equalSplit;
 }
 
 bool operator<(const BeatPos& lhs, const BeatPos& rhs) {

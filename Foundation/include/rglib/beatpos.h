@@ -8,9 +8,9 @@ namespace rglib {
 // A 3-tuple representation of an entity's 'beat position' in a song
 // 
 struct BeatPos {
-    int measure{};          // 0-indexed
-    int split{};            // 0-indexed
-    int measureSplit{};     // > 0
+    int measure{ 0 };          // 0-indexed
+    int split{ 0 };            // 0-indexed
+    int measureSplit{ 1 };     // > 0
 
     friend std::ostream& operator<<(std::ostream& os, const BeatPos& bp);
 };
