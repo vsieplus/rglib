@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.8)
 
-file(GLOB SRCS "src/*.cpp")
+file(GLOB_RECURSE SRCS "src/*.cpp")
 file(GLOB_RECURSE HDRS "include/*.h")
 
 add_library(${CMAKE_PROJECT_NAME}
