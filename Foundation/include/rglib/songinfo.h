@@ -8,7 +8,8 @@ namespace fs = std::filesystem;
 
 namespace rglib {
 
-struct SongInfo {
+class SongInfo {
+public:
     enum class FileFormat{
         INI,
         JSON,
@@ -19,8 +20,8 @@ struct SongInfo {
     SongInfo(float previewStart, float previewStop, std::string_view title, std::string_view artist,
         std::string_view genre, fs::path musicFilepath, fs::path artFilepath);
 
-    void save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat);
-
+    virtual void save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat);
+private:
     float previewStart{};
     float previewStop{};
 

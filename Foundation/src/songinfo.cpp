@@ -21,9 +21,8 @@ SongInfo::SongInfo(float previewStart, float previewStop, std::string_view title
     , artist{ artist }
     , genre{ genre }
     , musicFilepath{ musicFilepath }
-    , artFilepath{ artFilepath }
-{
-}
+    , artFilepath{ artFilepath } 
+{}
 
 
 void SongInfo::save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat) {
