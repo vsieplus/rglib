@@ -1,5 +1,6 @@
 #include "rglib/notesplit.h"
 
+#include <numeric>
 #include <unordered_map>
 
 namespace rglib {
@@ -22,7 +23,7 @@ const std::unordered_map<int, NoteSplit> DENOMINATOR_TO_NOTESPLIT {
 };
 
 NoteSplit computeNoteSplit(int noteSplitNumerator, int noteSplitDenominator) {
-    auto gcd = std::__gcd(noteSplitNumerator, noteSplitDenominator);
+    auto gcd = std::gcd(noteSplitNumerator, noteSplitDenominator);
     noteSplitNumerator /= gcd;
     noteSplitDenominator /= gcd;
 
