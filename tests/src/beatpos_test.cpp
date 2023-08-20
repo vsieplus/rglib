@@ -1,7 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
 #include <rglib/beatpos.h>
-#include <rglib/songinfo.h>
 
 namespace rglibtest {
 
