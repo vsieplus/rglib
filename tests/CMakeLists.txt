@@ -3,11 +3,14 @@ cmake_minimum_required (VERSION 3.16)
 add_executable(tests
     "src/beatpos_test.cpp"
     "src/timeinfo_test.cpp"
+    "src/songinfo_test.cpp"
 )
 
 target_include_directories(tests
     PUBLIC ${CMAKE_SOURCE_DIR}/include
 )
+
+file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 find_package(Catch2 3 REQUIRED)
 

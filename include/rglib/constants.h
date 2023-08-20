@@ -10,7 +10,7 @@ constexpr double SECONDS_PER_MINUTE{ 60.0 };
 constexpr double EPSILON = { 0.000001 };
 
 constexpr std::string_view PREVIEW_START_KEY { "musicPreviewStart" };
-constexpr std::string_view PREVIEW_STOP_KEY { "musicPreviewStart" };
+constexpr std::string_view PREVIEW_STOP_KEY { "musicPreviewStop" };
 constexpr std::string_view TITLE_KEY { "title" };
 constexpr std::string_view ARTIST_KEY { "artist" };
 constexpr std::string_view GENRE_KEY { "genre" };

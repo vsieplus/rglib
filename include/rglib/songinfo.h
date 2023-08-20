@@ -21,6 +21,14 @@ public:
         std::string_view genre, fs::path musicFilepath, fs::path artFilepath);
 
     virtual void save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat);
+
+    double getPreviewStart() const { return previewStart; }
+    double getPreviewStop() const { return previewStop; }
+    std::string getTitle() const { return title; }
+    std::string getArtist() const { return artist; }
+    std::string getGenre() const { return genre; }
+    fs::path getMusicFilepath() const { return musicFilepath; }
+    fs::path getArtFilepath() const { return artFilepath; }
 protected:
     virtual void loadFromINI(fs::path filepath);
     virtual void loadFromJSON(fs::path filepath);
