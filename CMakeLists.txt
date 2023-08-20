@@ -17,7 +17,7 @@ add_library(${CMAKE_PROJECT_NAME}
     src/notesplit.cpp
     src/songinfo.cpp
     src/songpos.cpp
-)
+ "include/rglib/timeinfo.h" "src/timeinfo.cpp")
 
 target_include_directories(${CMAKE_PROJECT_NAME}
     PUBLIC ${CMAKE_SOURCE_DIR}/include/

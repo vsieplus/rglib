@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 3.16)
 
 add_executable(tests
     "src/beatpos_test.cpp"
+    "src/timeinfo_test.cpp"
 )
 
 target_include_directories(tests
