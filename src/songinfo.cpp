@@ -2,6 +2,7 @@
 
 #include "rglib/constants.h"
 
+#include <inipp/inipp.h>
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
@@ -18,7 +19,17 @@ SongInfo::SongInfo(fs::path filepath, FileFormat songinfoFormat) {
 }
 
 void SongInfo::loadFromINI(fs::path filepath) {
+    std::ifstream fp(filepath);
+    inipp::Ini<char> ini;
+    ini.parse(fp);
 
+    inipp::get_value(ini.sections["SongInfo"], constants::PREVIEW_START_KEY, previewStart);
+    inipp::get_value(ini.sections["SongInfo"], constants::PREVIEW_STOP_KEY, previewStop);
+    inipp::get_value(ini.sections["SongInfo"], constants::TITLE_KEY, title);
+    inipp::get_value(ini.sections["SongInfo"], constants::ARTIST_KEY, artist);
+    inipp::get_value(ini.sections["SongInfo"], constants::GENRE_KEY, genre);
+    inipp::get_value(ini.sections["SongInfo"], constants::MUSIC_FILEPATH_KEY, musicFilepath);
+    inipp::get_value(ini.sections["SongInfo"], constants::ART_FILEPATH_KEY, artFilepath);
 }
 
 void SongInfo::loadFromJSON(fs::path filepath) {
