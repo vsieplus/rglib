@@ -47,5 +47,6 @@ install(TARGETS ${CMAKE_PROJECT_NAME}
 install(FILES ${CMAKE_BINARY_DIR}/rglib.pc
     DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
 
+add_subdirectory(examples)
 add_subdirectory(tests)
 enable_testing()
