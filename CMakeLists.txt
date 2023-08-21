@@ -15,6 +15,7 @@ add_library(${CMAKE_PROJECT_NAME}
     src/beatpos.cpp
     src/chartinfo.cpp
     src/notesplit.cpp
+    src/sequenceitem.cpp
     src/songinfo.cpp
     src/songpos.cpp
     src/timeinfo.cpp
@@ -29,9 +30,12 @@ set(HDRS
     include/rglib/beatpos.h
     include/rglib/chartinfo.h
     include/rglib/constants.h
+    include/rglib/fileformat.h
     include/rglib/notesplit.h
+    include/rglib/sequenceitem.h
     include/rglib/songinfo.h
     include/rglib/songpos.h
+    include/rglib/timeinfo.h
 )
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
