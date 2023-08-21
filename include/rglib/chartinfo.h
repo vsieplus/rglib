@@ -1,6 +1,8 @@
 #ifndef CHARTINFO_H
 #define CHARTINFO_H
 
+#include "rglib/fileformat.h"
+
 #include <filesystem>
 namespace fs = std::filesystem;
 
@@ -11,11 +13,13 @@ namespace rglib {
 
 class ChartInfo {
 public:
-    ChartInfo(int level, std::string_view author);
+    ChartInfo(fs::path filepath, FileFormat fileFormat);
+    ChartInfo(int level, std::string_view author, std::string_view difficulty);
 private:
     int level{};
 
     std::string author{};
+    std::string difficulty{};
 };
 
 }
