@@ -57,4 +57,16 @@ TEST_CASE("BeatPos operator+/-", "[beatpos]") {
     }
 }
 
+TEST_CASE("BeatPos typecast -> double", "[beatpos]") {
+    rglib::BeatPos b1{ 0, 1, 2 };
+    rglib::BeatPos b3{ 0, 2, 4 };
+    rglib::BeatPos b4{ 1, 1, 4 };
+
+    SECTION("operator double()") {
+        REQUIRE(static_cast<double>(b1) == 0.5);
+        REQUIRE(static_cast<double>(b3) == 0.5);
+        REQUIRE(static_cast<double>(b4) == 1.25);
+    }
+}
+
 } // rglibtest

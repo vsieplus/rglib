@@ -1,6 +1,8 @@
 #ifndef SONGINFO_H
 #define SONGINFO_H
 
+#include "rglib/fileformat.h"
+
 #include <filesystem>
 namespace fs = std::filesystem;
 
@@ -10,12 +12,6 @@ namespace rglib {
 
 class SongInfo {
 public:
-    enum class FileFormat{
-        INI,
-        JSON,
-        CUSTOM,
-    };
-
     SongInfo(fs::path filepath, FileFormat songinfoFormat);
     SongInfo(double previewStart, double previewStop, std::string_view title, std::string_view artist,
         std::string_view genre, fs::path musicFilepath, fs::path artFilepath);

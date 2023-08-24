@@ -4,6 +4,10 @@
 
 namespace rglib {
 
+BeatPos::operator double() const {
+    return measure + (split / (double)measureSplit);
+}
+
 BeatPos operator+(const BeatPos& lhs, const BeatPos& rhs) {
     // find lcd of lhs / rhs measureSplit
     auto measureSplit = std::lcm(lhs.measureSplit, rhs.measureSplit);
