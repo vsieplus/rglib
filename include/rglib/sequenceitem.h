@@ -23,6 +23,8 @@ struct SequenceItem {
     double absTime{};
 };
 
+bool operator<(const SequenceItem & lhs, const SequenceItem & rhs);
+
 } // rglib
 
 #endif // SEQUENCEITEM_H

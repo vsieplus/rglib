@@ -58,5 +58,8 @@ SequenceItem::SequenceItem(BeatPos beatpos, const std::vector<TimeInfo>& section
     , absTime{ calculateAbsTime(absBeat, beatpos, sections) }
 {}
 
+bool operator<(const SequenceItem& lhs, const SequenceItem& rhs) {
+    return lhs.beatpos < rhs.beatpos;
+}
 
 } // rglib
