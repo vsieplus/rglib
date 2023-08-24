@@ -11,14 +11,14 @@ namespace rglib {
 struct TimeInfo {
     TimeInfo(int beatsPerMeasure, double bpm, BeatPos beatpos, TimeInfo* prevTimeInfo);
 
-    int beatsPerMeasure;
+    int beatsPerMeasure {};
 
-    double bpm;
+    double bpm {};
 
-    BeatPos beatpos;
+    BeatPos beatpos {};
 
-    double absBeatStart;
-    double absTimeStart;    // in seconds
+    double absBeatStart {};
+    double absTimeStart {};    // in seconds
 };
 
 bool operator<(const TimeInfo& lhs, const TimeInfo& rhs);

@@ -12,6 +12,7 @@ struct BeatPos {
     int split{ 0 };            // 0-indexed
     int measureSplit{ 1 };     // > 0
 
+    operator double() const;
     friend std::ostream& operator<<(std::ostream& os, const BeatPos& bp);
 };
 

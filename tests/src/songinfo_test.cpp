@@ -29,7 +29,7 @@ TEST_CASE("SongInfo manual constructor", "[songinfo]") {
 }
 
 TEST_CASE("SongInfo default JSON parser", "[songinfo]") {
-    rglib::SongInfo s{ songInfoJSONPath, rglib::SongInfo::FileFormat::JSON };
+    rglib::SongInfo s{ songInfoJSONPath, rglib::FileFormat::JSON };
 
     REQUIRE_THAT(s.getPreviewStart(), Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
     REQUIRE_THAT(s.getPreviewStop(), Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
@@ -41,7 +41,7 @@ TEST_CASE("SongInfo default JSON parser", "[songinfo]") {
 }
 
 TEST_CASE("SongInfo default INI parser", "[songinfo]") {
-    rglib::SongInfo s{ songInfoINIPath, rglib::SongInfo::FileFormat::INI };
+    rglib::SongInfo s{ songInfoINIPath, rglib::FileFormat::INI };
 
     REQUIRE_THAT(s.getPreviewStart(), Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
     REQUIRE_THAT(s.getPreviewStop(), Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));

@@ -18,6 +18,18 @@ SongInfo::SongInfo(fs::path filepath, FileFormat songinfoFormat) {
     }
 }
 
+
+SongInfo::SongInfo(double previewStart, double previewStop, std::string_view title, std::string_view artist,
+    std::string_view genre, fs::path musicFilepath, fs::path artFilepath)
+    : previewStart{ previewStart }
+    , previewStop{ previewStop }
+    , title{ title }
+    , artist{ artist }
+    , genre{ genre }
+    , musicFilepath{ musicFilepath }
+    , artFilepath{ artFilepath }
+{}
+
 void SongInfo::loadFromINI(fs::path filepath) {
     std::ifstream fp(filepath);
     inipp::Ini<char> ini;
@@ -46,17 +58,6 @@ void SongInfo::loadFromJSON(fs::path filepath) {
 }
 
 void SongInfo::loadFromCustom(fs::path filepath) {}
-
-SongInfo::SongInfo(double previewStart, double previewStop, std::string_view title, std::string_view artist,
-    std::string_view genre, fs::path musicFilepath, fs::path artFilepath)
-    : previewStart{ previewStart }
-    , previewStop{ previewStop }
-    , title{ title }
-    , artist{ artist }
-    , genre{ genre }
-    , musicFilepath{ musicFilepath }
-    , artFilepath{ artFilepath } 
-{}
 
 
 void SongInfo::save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat) {

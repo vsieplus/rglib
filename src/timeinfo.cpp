@@ -5,12 +5,12 @@
 namespace rglib {
 
 double calculateBeatStart(int beatsPerMeasure, BeatPos beatpos, TimeInfo* prevTimeinfo) {
-    auto absMeasure = beatpos.measure + (beatpos.split / (float)beatpos.measureSplit);
+    auto absMeasure = static_cast<double>(beatpos);
 
     if (!prevTimeinfo) {
         return absMeasure * beatsPerMeasure;
     } else {
-        auto prevAbsMeasure = prevTimeinfo->beatpos.measure + ((double)prevTimeinfo->beatpos.split / prevTimeinfo->beatpos.measureSplit);
+        auto prevAbsMeasure = static_cast<double>(prevTimeinfo->beatpos);
         auto absMeasureDiff = absMeasure - prevAbsMeasure;
 
         return prevTimeinfo->absBeatStart + (absMeasureDiff * prevTimeinfo->beatsPerMeasure);
