@@ -53,7 +53,8 @@ SequenceItem::SequenceItem(double absTime, double absBeat)
 {}
 
 SequenceItem::SequenceItem(BeatPos beatpos, const std::vector<TimeInfo>& sections)
-    : absBeat{ calculateAbsBeat(beatpos, sections) }
+    : beatpos{ beatpos }
+    , absBeat{ calculateAbsBeat(beatpos, sections) }
     , absTime{ calculateAbsTime(absBeat, beatpos, sections) }
 {}
 

@@ -14,6 +14,8 @@ struct SequenceItem {
     SequenceItem(double absTime, double absBeat);
     SequenceItem(BeatPos beatpos, const std::vector<TimeInfo> & sections);
 
+    BeatPos beatpos{};
+
     // beat position from the start of the song
     double absBeat{};
 
