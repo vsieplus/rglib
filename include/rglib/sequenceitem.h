@@ -14,11 +14,11 @@ struct SequenceItem {
     SequenceItem(double absTime, double absBeat);
     SequenceItem(BeatPos beatpos, const std::vector<TimeInfo> & sections);
 
-    // time in seconds from the start of the song
-    double absTime{};
-
     // beat position from the start of the song
     double absBeat{};
+
+    // time in seconds from the start of the song
+    double absTime{};
 };
 
 } // rglib
