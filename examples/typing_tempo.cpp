@@ -4,7 +4,7 @@
 #include <iostream>
 
 rglib::SongInfo loadSong() {
-    rglib::SongInfo songinfo{ "data/TypingTempo/songinfo.json", rglib::SongInfo::FileFormat::JSON };
+    rglib::SongInfo songinfo{ "data/TypingTempo/songinfo.json", rglib::FileFormat::JSON };
 
     std::cout << "Title: " << songinfo.getTitle() << "\n";
     std::cout << "Artist: " << songinfo.getArtist() << "\n";
