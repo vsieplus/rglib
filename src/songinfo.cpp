@@ -19,9 +19,10 @@ SongInfo::SongInfo(fs::path filepath, FileFormat songinfoFormat) {
 }
 
 
-SongInfo::SongInfo(double previewStart, double previewStop, std::string_view title, std::string_view artist,
-    std::string_view genre, fs::path musicFilepath, fs::path artFilepath)
-    : previewStart{ previewStart }
+SongInfo::SongInfo(int offsetMS, double previewStart, double previewStop, std::string_view title,
+    std::string_view artist, std::string_view genre, fs::path musicFilepath, fs::path artFilepath)
+    : offsetMS { offsetMS }
+    , previewStart{ previewStart }
     , previewStop{ previewStop }
     , title{ title }
     , artist{ artist }
@@ -35,6 +36,7 @@ void SongInfo::loadFromINI(fs::path filepath) {
     inipp::Ini<char> ini;
     ini.parse(fp);
 
+    inipp::get_value(ini.sections["SongInfo"], constants::OFFSET_KEY, offsetMS);
     inipp::get_value(ini.sections["SongInfo"], constants::PREVIEW_START_KEY, previewStart);
     inipp::get_value(ini.sections["SongInfo"], constants::PREVIEW_STOP_KEY, previewStop);
     inipp::get_value(ini.sections["SongInfo"], constants::TITLE_KEY, title);
@@ -48,6 +50,7 @@ void SongInfo::loadFromJSON(fs::path filepath) {
     std::ifstream fp(filepath);
     json j = json::parse(fp);
 
+    offsetMS = j.value(constants::OFFSET_KEY, 0);
     previewStart = j.value(constants::PREVIEW_START_KEY, 0.0);
     previewStop = j.value(constants::PREVIEW_STOP_KEY, 0.0);
     title = j.value(constants::TITLE_KEY, "");

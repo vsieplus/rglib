@@ -13,11 +13,12 @@ namespace rglib {
 class SongInfo {
 public:
     SongInfo(fs::path filepath, FileFormat songinfoFormat);
-    SongInfo(double previewStart, double previewStop, std::string_view title, std::string_view artist,
-        std::string_view genre, fs::path musicFilepath, fs::path artFilepath);
+    SongInfo(int offsetMS, double previewStart, double previewStop, std::string_view title,
+        std::string_view artist, std::string_view genre, fs::path musicFilepath, fs::path artFilepath);
 
     virtual void save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat);
 
+    int getOffsetMS() const { return offsetMS; }
     double getPreviewStart() const { return previewStart; }
     double getPreviewStop() const { return previewStop; }
     std::string getTitle() const { return title; }
@@ -30,6 +31,9 @@ protected:
     virtual void loadFromJSON(fs::path filepath);
     virtual void loadFromCustom(fs::path filepath);
 private:
+    // MS from the start of the audio file to the first beat
+    int offsetMS{};
+
     double previewStart{};
     double previewStop{};
 

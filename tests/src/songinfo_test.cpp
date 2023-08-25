@@ -6,6 +6,9 @@
 
 namespace rglibtest {
 
+namespace songinfo {
+
+constexpr int offsetMS{ 5 };
 constexpr double previewStart{ 0.0 };
 constexpr double previewStop{ 15.0 };
 const std::string title{ "Brain Power" };
@@ -17,10 +20,11 @@ const fs::path songInfoINIPath{ "data/songinfo.ini" };
 const fs::path songInfoJSONPath{ "data/songinfo.json" };
 
 TEST_CASE("SongInfo manual constructor", "[songinfo]") {
-    rglib::SongInfo s{ previewStart, previewStop, title, artist, genre, musicFilepath, artFilepath };
+    rglib::SongInfo s{ offsetMS, previewStart, previewStop, title, artist, genre, musicFilepath, artFilepath };
 
     REQUIRE_THAT(s.getPreviewStart(), Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
     REQUIRE_THAT(s.getPreviewStop(), Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
+    REQUIRE(s.getOffsetMS() == offsetMS);
     REQUIRE(s.getTitle() == title);
     REQUIRE(s.getArtist() == artist);
     REQUIRE(s.getGenre() == genre);
@@ -33,6 +37,7 @@ TEST_CASE("SongInfo default JSON parser", "[songinfo]") {
 
     REQUIRE_THAT(s.getPreviewStart(), Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
     REQUIRE_THAT(s.getPreviewStop(), Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
+    REQUIRE(s.getOffsetMS() == offsetMS);
     REQUIRE(s.getTitle() == title);
     REQUIRE(s.getArtist() == artist);
     REQUIRE(s.getGenre() == genre);
@@ -45,11 +50,14 @@ TEST_CASE("SongInfo default INI parser", "[songinfo]") {
 
     REQUIRE_THAT(s.getPreviewStart(), Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
     REQUIRE_THAT(s.getPreviewStop(), Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
+    REQUIRE(s.getOffsetMS() == offsetMS);
     REQUIRE(s.getTitle() == title);
     REQUIRE(s.getArtist() == artist);
     REQUIRE(s.getGenre() == genre);
     REQUIRE(s.getMusicFilepath() == musicFilepath);
     REQUIRE(s.getArtFilepath() == artFilepath);
 }
+
+} // songinfo
 
 } // rglibtest
