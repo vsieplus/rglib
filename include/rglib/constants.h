@@ -17,6 +17,10 @@ constexpr std::string_view GENRE_KEY { "genre" };
 constexpr std::string_view MUSIC_FILEPATH_KEY { "music" };
 constexpr std::string_view ART_FILEPATH_KEY { "art" };
 
+constexpr std::string_view LEVEL_KEY { "level" };
+constexpr std::string_view AUTHOR_KEY { "author" };
+constexpr std::string_view DIFFICULTY_KEY { "difficulty" };
+
 } // rglib
 
 #endif // CONSTANTS_H
