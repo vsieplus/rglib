@@ -18,6 +18,7 @@ add_library(${CMAKE_PROJECT_NAME}
     src/sequenceitem.cpp
     src/songinfo.cpp
     src/songpos.cpp
+    src/section.cpp
     src/timeinfo.cpp
 )
 
@@ -33,6 +34,7 @@ set(HDRS
     include/rglib/fileformat.h
     include/rglib/notesplit.h
     include/rglib/sequenceitem.h
+    include/rglib/section.h
     include/rglib/songinfo.h
     include/rglib/songpos.h
     include/rglib/timeinfo.h

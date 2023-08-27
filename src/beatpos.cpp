@@ -1,11 +1,25 @@
 #include "rglib/beatpos.h"
 
+#include <array>
 #include <numeric>
 
 namespace rglib {
 
 BeatPos::operator double() const {
     return measure + (split / (double)measureSplit);
+}
+
+void to_json(json& j, const BeatPos& bp) {
+    j = json::array({ bp.measure, bp.split, bp.measureSplit });
+}
+
+void from_json(const json& j, BeatPos& bp) {
+    std::array<int, 3> arr;
+    j.get_to(arr);
+
+    bp.measure = arr[0];
+    bp.split = arr[1];
+    bp.measureSplit = arr[2];
 }
 
 BeatPos operator+(const BeatPos& lhs, const BeatPos& rhs) {

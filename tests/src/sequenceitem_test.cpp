@@ -3,7 +3,7 @@
 
 #include <rglib/constants.h>
 #include <rglib/sequenceitem.h>
-#include <rglib/timeinfo.h>
+#include <rglib/section.h>
 
 namespace rglibtest {
 
@@ -15,10 +15,10 @@ TEST_CASE("SequenceItem basic constructor", "[sequenceitem]") {
 }
 
 TEST_CASE("SequenceItem with beatpos", "[sequenceitem]") {
-    rglib::TimeInfo t1 { 4, 120, rglib::BeatPos{ 0, 0, 1 }, nullptr };
-    rglib::TimeInfo t2 { 4, 60, rglib::BeatPos{ 1, 0, 1 }, &t1 };
+    rglib::Section t1 { 4, 120, rglib::BeatPos{ 0, 0, 1 }, nullptr };
+    rglib::Section t2 { 4, 60, rglib::BeatPos{ 1, 0, 1 }, &t1 };
 
-    std::vector<rglib::TimeInfo> sections { t1, t2 };
+    std::vector<rglib::Section> sections { t1, t2 };
 
     rglib::SequenceItem s1{ rglib::BeatPos{ 1, 0, 1 }, sections };
     rglib::SequenceItem s2{ rglib::BeatPos{ 0, 1, 2 }, sections };
