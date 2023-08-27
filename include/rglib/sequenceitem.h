@@ -2,6 +2,7 @@
 #define SEQUENCEITEM_H
 
 #include "rglib/beatpos.h"
+#include "rglib/section.h"
 #include "rglib/timeinfo.h"
 
 #include <vector>
@@ -12,7 +13,7 @@ namespace rglib {
 // such as a note, a hold, a mine, etc.
 struct SequenceItem {
     SequenceItem(double absTime, double absBeat);
-    SequenceItem(BeatPos beatpos, const std::vector<TimeInfo> & sections);
+    SequenceItem(BeatPos beatpos, const TimeInfo & timeinfo);
 
     BeatPos beatpos{};
 

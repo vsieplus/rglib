@@ -24,7 +24,7 @@ public:
     int getLevel() const { return level; }
     std::string getAuthor() const { return author; }
     std::string getDifficulty() const { return difficulty; }
-    const std::vector<TimeInfo> & getSections() const { return sections; }
+    const TimeInfo& getTimeInfo() const { return timeinfo; }
 protected:
     virtual void loadFromJSON(fs::path filepath);
     virtual void loadFromCustom(fs::path filepath);
@@ -34,7 +34,7 @@ private:
     std::string author{};
     std::string difficulty{};
 
-    std::vector<TimeInfo> sections{};
+    TimeInfo timeinfo{};
 };
 
 }

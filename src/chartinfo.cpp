@@ -36,24 +36,8 @@ void ChartInfo::loadFromJSON(fs::path filepath) {
     author = j.value(constants::AUTHOR_KEY, "");
     difficulty = j.value(constants::DIFFICULTY_KEY, "");
 
-    TimeInfo* prevSection = nullptr;
-
     if(j.contains(constants::TIMEINFO_KEY)) {
-        std::vector<json> sectionsJSON = j[constants::TIMEINFO_KEY];
-        for(const auto& sectionJSON : sectionsJSON) {
-            int beatsPerMeasure{ sectionJSON.value(constants::BEATS_PER_MEASURE_KEY, constants::DEFAULT_BEATS_PER_MEASURE) };
-            double bpm{ sectionJSON.value(constants::BPM_KEY, constants::DEFAULT_BPM) };
-
-            auto beatposJSON = sectionJSON[constants::BEATPOS_KEY];
-            if(!beatposJSON.is_array() || !beatposJSON.size() == constants::BEATPOS_SIZE) {
-                continue;
-            }
-
-            BeatPos beatpos{ beatposJSON.get<BeatPos>() };
-
-            sections.emplace_back(beatsPerMeasure, bpm, beatpos, prevSection);
-            prevSection = &sections.back();
-        }
+        timeinfo = j[constants::TIMEINFO_KEY].get<TimeInfo>();
     }
 }
 

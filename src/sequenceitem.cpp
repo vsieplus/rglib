@@ -4,17 +4,17 @@
 
 namespace rglib {
 
-double calculateAbsBeat(BeatPos beatpos, const std::vector<TimeInfo>& sections) {
+double calculateAbsBeat(BeatPos beatpos, const TimeInfo& timeinfo) {
     double absBeat{};
     double absMeasure{ static_cast<double>(beatpos) };
 
     double lastMeasureStart{ 0.0 };
     double lastBeatsPerMeasure{ 4.0 };
     std::size_t j { 0 };
-    for(const auto & section : sections) {
+    for(const auto & section : timeinfo.sections) {
         double measureStart = static_cast<double>(section.beatpos);
 
-        if(absMeasure < measureStart || j == sections.size() - 1) {
+        if(absMeasure < measureStart || j == timeinfo.size() - 1) {
             absBeat += lastBeatsPerMeasure * (absMeasure - lastMeasureStart);
         } else {
             absBeat += lastBeatsPerMeasure * (measureStart - lastMeasureStart);
@@ -28,12 +28,12 @@ double calculateAbsBeat(BeatPos beatpos, const std::vector<TimeInfo>& sections) 
     return absBeat;
 }
 
-double calculateAbsTime(double absBeat, BeatPos beatpos, const std::vector<TimeInfo>& sections) {
+double calculateAbsTime(double absBeat, BeatPos beatpos, const TimeInfo& timeinfo) {
     double sectionBeatStart{};
     double sectionTimeStart{};
     double spb{};
 
-    for(const auto & section : sections) {
+    for(const auto & section : timeinfo.sections) {
         if(absBeat > section.absBeatStart) {
             sectionBeatStart = section.absBeatStart;
             sectionTimeStart = section.absTimeStart;
@@ -52,10 +52,10 @@ SequenceItem::SequenceItem(double absTime, double absBeat)
     , absTime{ absTime }
 {}
 
-SequenceItem::SequenceItem(BeatPos beatpos, const std::vector<TimeInfo>& sections)
+SequenceItem::SequenceItem(BeatPos beatpos, const TimeInfo& timeinfo)
     : beatpos{ beatpos }
-    , absBeat{ calculateAbsBeat(beatpos, sections) }
-    , absTime{ calculateAbsTime(absBeat, beatpos, sections) }
+    , absBeat{ calculateAbsBeat(beatpos, timeinfo) }
+    , absTime{ calculateAbsTime(absBeat, beatpos, timeinfo) }
 {}
 
 bool operator<(const SequenceItem& lhs, const SequenceItem& rhs) {

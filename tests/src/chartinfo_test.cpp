@@ -32,7 +32,7 @@ TEST_CASE("ChartInfo default JSON parser", "[chartinfo]") {
     REQUIRE(c.getAuthor() == author);
     REQUIRE(c.getDifficulty() == difficulty);
 
-    const auto& sections = c.getSections();
+    const auto& sections = c.getTimeInfo();
     REQUIRE(sections.size() == 3);
 
     REQUIRE(sections[0].bpm == 120);
