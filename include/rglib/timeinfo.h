@@ -1,27 +1,26 @@
 #ifndef TIMEINFO_H
 #define TIMEINFO_H
 
-#include "beatpos.h"
+#include "rglib/section.h"
 
-#include <ostream>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 namespace rglib {
 
-// Time signature/tempo information for a given section of a song
 struct TimeInfo {
-    TimeInfo(int beatsPerMeasure, double bpm, BeatPos beatpos, TimeInfo* prevTimeInfo);
+    TimeInfo() = default;
+    TimeInfo(const std::vector<Section> & sections);
 
-    int beatsPerMeasure {};
+    Section& operator[](int index);
+    Section operator[](int index) const;
+    size_t size() const { return sections.size(); }
 
-    double bpm {};
-
-    BeatPos beatpos {};
-
-    double absBeatStart {};
-    double absTimeStart {};    // in seconds
+    std::vector<Section> sections{};
 };
 
-bool operator<(const TimeInfo& lhs, const TimeInfo& rhs);
+void to_json(json& j, const TimeInfo& ti);
+void from_json(const json& j, TimeInfo& ti);
 
 } // rglib
 

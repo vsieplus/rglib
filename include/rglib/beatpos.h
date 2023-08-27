@@ -3,6 +3,9 @@
 
 #include <ostream>
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 namespace rglib {
 
 // A 3-tuple representation of an entity's 'beat position' in a song
@@ -15,6 +18,9 @@ struct BeatPos {
     operator double() const;
     friend std::ostream& operator<<(std::ostream& os, const BeatPos& bp);
 };
+
+void to_json(json& j, const BeatPos& bp);
+void from_json(const json& j, BeatPos& bp);
 
 BeatPos operator+(const BeatPos & lhs, const BeatPos & rhs);
 BeatPos operator-(const BeatPos & lhs, const BeatPos & rhs);

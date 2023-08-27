@@ -4,38 +4,37 @@
 
 namespace rglib {
 
-double calculateBeatStart(int beatsPerMeasure, BeatPos beatpos, TimeInfo* prevTimeinfo) {
-    auto absMeasure = static_cast<double>(beatpos);
-
-    if (!prevTimeinfo) {
-        return absMeasure * beatsPerMeasure;
-    } else {
-        auto prevAbsMeasure = static_cast<double>(prevTimeinfo->beatpos);
-        auto absMeasureDiff = absMeasure - prevAbsMeasure;
-
-        return prevTimeinfo->absBeatStart + (absMeasureDiff * prevTimeinfo->beatsPerMeasure);
-    }
-}
-
-double calculateTimeStart(double absBeatStart, BeatPos beatpos, TimeInfo* prevTimeinfo) {
-    if (!prevTimeinfo) {
-        return 0.f;
-    } else {
-        auto prevSectionBeatLength = absBeatStart - prevTimeinfo->absBeatStart;
-        return prevTimeinfo->absTimeStart + prevSectionBeatLength * (constants::SECONDS_PER_MINUTE / prevTimeinfo->bpm);
-    }
-}
-
-TimeInfo::TimeInfo(int beatsPerMeasure, double bpm, BeatPos beatpos, TimeInfo* prevTimeInfo)
-    : beatsPerMeasure{ beatsPerMeasure }
-    , bpm{ bpm }
-    , beatpos{ beatpos }
-    , absBeatStart{ calculateBeatStart(beatsPerMeasure, beatpos, prevTimeInfo) }
-    , absTimeStart{ calculateTimeStart(absBeatStart, beatpos, prevTimeInfo) }
+TimeInfo::TimeInfo(const std::vector<Section> & sections)
+    : sections{ sections }
 {}
 
-bool operator<(const TimeInfo& lhs, const TimeInfo& rhs) {
-    return lhs.beatpos < rhs.beatpos;
+Section& TimeInfo::operator[](int index) {
+    return sections[index];
+}
+
+Section TimeInfo::operator[](int index) const {
+    return sections.at(index);
+}
+
+void to_json(json& j, const TimeInfo& ti) {
+    auto timeinfo = json::array();
+    for (const auto& section : ti.sections) {
+        timeinfo.push_back(section);
+    }
+
+    j = timeinfo;
+}
+
+void from_json(const json& j, TimeInfo& ti) {
+    ti.sections.clear();
+
+    Section* prevSection{ nullptr };
+    for(const auto& sectionJ : j) {
+        Section section { sectionJ.get<Section>() };
+
+        ti.sections.emplace_back(section.beatsPerMeasure, section.bpm, section.beatpos, prevSection);
+        prevSection = &ti.sections.back();
+    }
 }
 
 } // rglib
