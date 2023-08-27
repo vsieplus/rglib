@@ -1,0 +1,10 @@
+{
+    "level": 1,
+    "difficulty": "Easy",
+    "author": "abc",
+    "timeinfo": [
+        { "pos": [0,0,1], "bpm" : 120, "beatsPerMeasure": 4 },
+        { "pos": [1,0,1], "bpm" : 160, "beatsPerMeasure": 2 },
+        { "pos": [2,0,1], "bpm" : 90, "beatsPerMeasure": 3 }
+    ]
+}

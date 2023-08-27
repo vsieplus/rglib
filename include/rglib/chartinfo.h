@@ -20,6 +20,11 @@ public:
     ChartInfo(int level, std::string_view author, std::string_view difficulty);
 
     virtual void save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat);
+
+    int getLevel() const { return level; }
+    std::string getAuthor() const { return author; }
+    std::string getDifficulty() const { return difficulty; }
+    const std::vector<TimeInfo> & getSections() const { return sections; }
 protected:
     virtual void loadFromJSON(fs::path filepath);
     virtual void loadFromCustom(fs::path filepath);

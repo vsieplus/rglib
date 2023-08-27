@@ -5,6 +5,7 @@ add_executable(tests
     "src/timeinfo_test.cpp"
     "src/songinfo_test.cpp"
     "src/sequenceitem_test.cpp"
+    "src/chartinfo_test.cpp"
 )
 
 target_include_directories(tests
