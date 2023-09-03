@@ -39,17 +39,9 @@ TEST_CASE("SongInfo manual constructor", "[songinfo]") {
 }
 
 TEST_CASE("SongInfo default JSON parser", "[songinfo]") {
-    rglib::SongInfo s{};
-
-    SECTION("loadFromJSON()") {
-        s.loadFromJSON(songInfoJSONPath);
-    }
-
-    SECTION("using json::get<SongInfo>()") {
-        std::ifstream fp{ songInfoJSONPath };
-        json j { json::parse(fp) };
-        s = j.get<rglib::SongInfo>();
-    };
+    std::ifstream fp{ songInfoJSONPath };
+    json j { json::parse(fp) };
+    rglib::SongInfo s { j.get<rglib::SongInfo>() };
 
     REQUIRE_THAT(s.previewStart, Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
     REQUIRE_THAT(s.previewStop, Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
@@ -63,7 +55,12 @@ TEST_CASE("SongInfo default JSON parser", "[songinfo]") {
 
 TEST_CASE("SongInfo default INI parser", "[songinfo]") {
     rglib::SongInfo s{};
-    s.loadFromINI(songInfoINIPath);
+
+    inipp::Ini<char> ini;
+    std::ifstream fp{ songInfoINIPath };
+    ini.parse(fp);
+
+    s.loadFromINI(ini);
 
     REQUIRE_THAT(s.previewStart, Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
     REQUIRE_THAT(s.previewStop, Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));

@@ -18,27 +18,7 @@ SongInfo::SongInfo(int offsetMS, double previewStart, double previewStop, std::s
     , artFilepath{ artFilepath }
 {}
 
-bool SongInfo::loadFromJSON(fs::path filepath) {
-    try {
-        std::ifstream fp(filepath);
-        json j = json::parse(fp);
-        from_json(j, *this);
-    } catch (const std::ifstream::failure& e) {
-        return false;
-    }
-
-return true;
-}
-
-bool SongInfo::loadFromINI(fs::path filepath) {
-    inipp::Ini<char> ini;
-    try {
-        std::ifstream fp(filepath);
-        ini.parse(fp);
-    } catch (const std::ifstream::failure& e) {
-        return false;
-    }
-
+void SongInfo::loadFromINI(inipp::Ini<char> & ini) {
     inipp::get_value(ini.sections["SongInfo"], constants::OFFSET_KEY, offsetMS);
     inipp::get_value(ini.sections["SongInfo"], constants::PREVIEW_START_KEY, previewStart);
     inipp::get_value(ini.sections["SongInfo"], constants::PREVIEW_STOP_KEY, previewStop);
@@ -47,8 +27,6 @@ bool SongInfo::loadFromINI(fs::path filepath) {
     inipp::get_value(ini.sections["SongInfo"], constants::GENRE_KEY, genre);
     inipp::get_value(ini.sections["SongInfo"], constants::MUSIC_FILEPATH_KEY, musicFilepath);
     inipp::get_value(ini.sections["SongInfo"], constants::ART_FILEPATH_KEY, artFilepath);
-    
-    return true;
 }
 
 void SongInfo::save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat) {

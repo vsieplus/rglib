@@ -18,8 +18,7 @@ struct SongInfo {
     SongInfo(int offsetMS, double previewStart, double previewStop, std::string_view title,
         std::string_view artist, std::string_view genre, fs::path musicFilepath, fs::path artFilepath);
 
-    bool loadFromJSON(fs::path filepath);
-    bool loadFromINI(fs::path filepath);
+    void loadFromINI(inipp::Ini<char>& ini);
 
     virtual void save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat);
 
