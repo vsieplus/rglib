@@ -12,23 +12,17 @@ namespace fs = std::filesystem;
 #include <string_view>
 #include <vector>
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 namespace rglib {
 
-class ChartInfo {
-public:
-    ChartInfo(fs::path filepath, FileFormat fileFormat);
+struct ChartInfo {
+    ChartInfo() = default;
     ChartInfo(int level, std::string_view author, std::string_view difficulty);
 
     virtual void save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat);
 
-    int getLevel() const { return level; }
-    std::string getAuthor() const { return author; }
-    std::string getDifficulty() const { return difficulty; }
-    const TimeInfo& getTimeInfo() const { return timeinfo; }
-protected:
-    virtual void loadFromJSON(fs::path filepath);
-    virtual void loadFromCustom(fs::path filepath);
-private:
     int level{};
 
     std::string author{};
@@ -36,6 +30,9 @@ private:
 
     TimeInfo timeinfo{};
 };
+
+void to_json(json& j, const ChartInfo& ci);
+void from_json(const json& j, ChartInfo& ci);
 
 }
 

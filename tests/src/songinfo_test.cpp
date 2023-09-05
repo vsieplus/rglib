@@ -4,6 +4,10 @@
 #include <rglib/constants.h>
 #include <rglib/songinfo.h>
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
+#include <fstream>
 #include <string_view>
 
 namespace rglibtest {
@@ -24,40 +28,48 @@ const fs::path songInfoJSONPath{ "data/songinfo.json" };
 TEST_CASE("SongInfo manual constructor", "[songinfo]") {
     rglib::SongInfo s{ offsetMS, previewStart, previewStop, title, artist, genre, musicFilepath, artFilepath };
 
-    REQUIRE_THAT(s.getPreviewStart(), Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
-    REQUIRE_THAT(s.getPreviewStop(), Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
-    REQUIRE(s.getOffsetMS() == offsetMS);
-    REQUIRE(s.getTitle() == title);
-    REQUIRE(s.getArtist() == artist);
-    REQUIRE(s.getGenre() == genre);
-    REQUIRE(s.getMusicFilepath() == musicFilepath);
-    REQUIRE(s.getArtFilepath() == artFilepath);
+    REQUIRE_THAT(s.previewStart, Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
+    REQUIRE_THAT(s.previewStop, Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
+    REQUIRE(s.offsetMS == offsetMS);
+    REQUIRE(s.title == title);
+    REQUIRE(s.artist == artist);
+    REQUIRE(s.genre == genre);
+    REQUIRE(s.musicFilepath == musicFilepath);
+    REQUIRE(s.artFilepath == artFilepath);
 }
 
 TEST_CASE("SongInfo default JSON parser", "[songinfo]") {
-    rglib::SongInfo s{ songInfoJSONPath, rglib::FileFormat::JSON };
+    std::ifstream fp{ songInfoJSONPath };
+    json j{ json::parse(fp) };
+    rglib::SongInfo s{ j.get<rglib::SongInfo>() };
 
-    REQUIRE_THAT(s.getPreviewStart(), Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
-    REQUIRE_THAT(s.getPreviewStop(), Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
-    REQUIRE(s.getOffsetMS() == offsetMS);
-    REQUIRE(s.getTitle() == title);
-    REQUIRE(s.getArtist() == artist);
-    REQUIRE(s.getGenre() == genre);
-    REQUIRE(s.getMusicFilepath() == musicFilepath);
-    REQUIRE(s.getArtFilepath() == artFilepath);
+    REQUIRE_THAT(s.previewStart, Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
+    REQUIRE_THAT(s.previewStop, Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
+    REQUIRE(s.offsetMS == offsetMS);
+    REQUIRE(s.title == title);
+    REQUIRE(s.artist == artist);
+    REQUIRE(s.genre == genre);
+    REQUIRE(s.musicFilepath == musicFilepath);
+    REQUIRE(s.artFilepath == artFilepath);
 }
 
 TEST_CASE("SongInfo default INI parser", "[songinfo]") {
-    rglib::SongInfo s{ songInfoINIPath, rglib::FileFormat::INI };
+    rglib::SongInfo s{};
 
-    REQUIRE_THAT(s.getPreviewStart(), Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
-    REQUIRE_THAT(s.getPreviewStop(), Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
-    REQUIRE(s.getOffsetMS() == offsetMS);
-    REQUIRE(s.getTitle() == title);
-    REQUIRE(s.getArtist() == artist);
-    REQUIRE(s.getGenre() == genre);
-    REQUIRE(s.getMusicFilepath() == musicFilepath);
-    REQUIRE(s.getArtFilepath() == artFilepath);
+    inipp::Ini<char> ini;
+    std::ifstream fp{ songInfoINIPath };
+    ini.parse(fp);
+
+    s.loadFromINI(ini);
+
+    REQUIRE_THAT(s.previewStart, Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
+    REQUIRE_THAT(s.previewStop, Catch::Matchers::WithinAbs(previewStop, rglib::constants::EPSILON));
+    REQUIRE(s.offsetMS == offsetMS);
+    REQUIRE(s.title == title);
+    REQUIRE(s.artist == artist);
+    REQUIRE(s.genre == genre);
+    REQUIRE(s.musicFilepath == musicFilepath);
+    REQUIRE(s.artFilepath == artFilepath);
 }
 
 } // songinfo

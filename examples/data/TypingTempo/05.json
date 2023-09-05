@@ -1,0 +1,22 @@
+{
+    "author": "vsie",
+    "keyboard": "QWERTY",
+    "difficulty": "normal",
+    "level": 5,
+    "timeinfo": [
+        { "pos": [0,0,1], "bpm": 140.0, "beatsPerMeasure": 4 },
+        { "pos": [5,0,1], "bpm": 160.0, "beatsPerMeasure": 4 }
+    ],
+    "notes": [
+        { "pos": [1,0,16], "key": "A", "type": 0 },
+        { "pos": [2,0,16], "key": "A", "type": 0 },
+        { "pos": [3,0,16], "key": "N", "type": 0 },
+        { "pos": [5,0,16], "key": "A", "type": 0 },
+        { "pos": [6,0,16], "key": "A", "type": 0 },
+        { "pos": [7,0,16], "key": "M", "type": 0 },
+        { "pos": [8,0,16], "key": "V", "type": 0 },
+        { "pos": [9,0,16], "key": "J", "type": 0 },
+        { "pos": [9,8,16], "key": "F", "type": 0 },
+        { "pos": [10,0,16], "key": "J", "type": 0 }
+    ]
+}

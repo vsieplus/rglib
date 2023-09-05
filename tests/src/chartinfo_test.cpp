@@ -5,6 +5,10 @@
 #include <rglib/constants.h>
 #include <rglib/chartinfo.h>
 
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
+#include <fstream>
 #include <string_view>
 
 namespace rglibtest {
@@ -20,19 +24,21 @@ const fs::path chartPath{ "data/chartinfo.json" };
 TEST_CASE("Chartinfo manual constructor", "[chartinfo]") {
     rglib::ChartInfo c{ level, author, difficulty };
 
-    REQUIRE(c.getLevel() == level);
-    REQUIRE(c.getAuthor() == author);
-    REQUIRE(c.getDifficulty() == difficulty);
+    REQUIRE(c.level == level);
+    REQUIRE(c.author == author);
+    REQUIRE(c.difficulty == difficulty);
 }
 
 TEST_CASE("ChartInfo default JSON parser", "[chartinfo]") {
-    rglib::ChartInfo c{ chartPath, rglib::FileFormat::JSON };
+    std::ifstream fp{ chartPath };
+    json j{ json::parse(fp) };
+    rglib::ChartInfo c{ j.get<rglib::ChartInfo>() };
 
-    REQUIRE(c.getLevel() == level);
-    REQUIRE(c.getAuthor() == author);
-    REQUIRE(c.getDifficulty() == difficulty);
+    REQUIRE(c.level == level);
+    REQUIRE(c.author == author);
+    REQUIRE(c.difficulty == difficulty);
 
-    const auto& sections = c.getTimeInfo();
+    const auto& sections = c.timeinfo;
     REQUIRE(sections.size() == 3);
 
     REQUIRE(sections[0].bpm == 120);

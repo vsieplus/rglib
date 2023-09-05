@@ -2,22 +2,9 @@
 
 #include "rglib/constants.h"
 
-#include <inipp/inipp.h>
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
-
 #include <fstream>
 
 namespace rglib {
-
-SongInfo::SongInfo(fs::path filepath, FileFormat songinfoFormat) {
-    switch (songinfoFormat) {
-    case FileFormat::INI:       loadFromINI(filepath);  break;
-    case FileFormat::JSON:      loadFromJSON(filepath); break;
-    case FileFormat::CUSTOM:    loadFromCustom(filepath); break;
-    }
-}
-
 
 SongInfo::SongInfo(int offsetMS, double previewStart, double previewStop, std::string_view title,
     std::string_view artist, std::string_view genre, fs::path musicFilepath, fs::path artFilepath)
@@ -31,11 +18,7 @@ SongInfo::SongInfo(int offsetMS, double previewStart, double previewStop, std::s
     , artFilepath{ artFilepath }
 {}
 
-void SongInfo::loadFromINI(fs::path filepath) {
-    std::ifstream fp(filepath);
-    inipp::Ini<char> ini;
-    ini.parse(fp);
-
+void SongInfo::loadFromINI(inipp::Ini<char> & ini) {
     inipp::get_value(ini.sections["SongInfo"], constants::OFFSET_KEY, offsetMS);
     inipp::get_value(ini.sections["SongInfo"], constants::PREVIEW_START_KEY, previewStart);
     inipp::get_value(ini.sections["SongInfo"], constants::PREVIEW_STOP_KEY, previewStop);
@@ -46,25 +29,36 @@ void SongInfo::loadFromINI(fs::path filepath) {
     inipp::get_value(ini.sections["SongInfo"], constants::ART_FILEPATH_KEY, artFilepath);
 }
 
-void SongInfo::loadFromJSON(fs::path filepath) {
-    std::ifstream fp(filepath);
-    json j = json::parse(fp);
+void SongInfo::save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat) {
+    fs::path savePath { saveDir / filename };
 
-    offsetMS = j.value(constants::OFFSET_KEY, 0);
-    previewStart = j.value(constants::PREVIEW_START_KEY, 0.0);
-    previewStop = j.value(constants::PREVIEW_STOP_KEY, 0.0);
-    title = j.value(constants::TITLE_KEY, "");
-    artist = j.value(constants::ARTIST_KEY, "");
-    genre = j.value(constants::GENRE_KEY, "");
-    musicFilepath = j.value(constants::MUSIC_FILEPATH_KEY, "");
-    artFilepath = j.value(constants::ART_FILEPATH_KEY, "");
+    switch(songinfoFormat) {
+    case FileFormat::JSON:  break;
+    case FileFormat::INI:   savePath.replace_extension(".ini"); break;
+    default:                break;
+    }
 }
 
-void SongInfo::loadFromCustom(fs::path filepath) {}
+void to_json(json& j, const SongInfo& ti) {
+    j[constants::OFFSET_KEY] = ti.offsetMS;
+    j[constants::PREVIEW_START_KEY] = ti.previewStart;
+    j[constants::PREVIEW_STOP_KEY] = ti.previewStop;
+    j[constants::TITLE_KEY] = ti.title;
+    j[constants::ARTIST_KEY] = ti.artist;
+    j[constants::GENRE_KEY] = ti.genre;
+    j[constants::MUSIC_FILEPATH_KEY] = ti.musicFilepath;
+    j[constants::ART_FILEPATH_KEY] = ti.artFilepath;
+}
 
-
-void SongInfo::save(fs::path saveDir, std::string_view filename, FileFormat songinfoFormat) {
-
+void from_json(const json& j, SongInfo& ti) {
+    ti.offsetMS = j.value(constants::OFFSET_KEY, 0);
+    ti.previewStart = j.value(constants::PREVIEW_START_KEY, 0.0);
+    ti.previewStop = j.value(constants::PREVIEW_STOP_KEY, 0.0);
+    ti.title = j.value(constants::TITLE_KEY, "");
+    ti.artist = j.value(constants::ARTIST_KEY, "");
+    ti.genre = j.value(constants::GENRE_KEY, "");
+    ti.musicFilepath = j.value(constants::MUSIC_FILEPATH_KEY, "");
+    ti.artFilepath = j.value(constants::ART_FILEPATH_KEY, "");
 }
 
 } // rglib
