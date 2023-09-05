@@ -31,8 +31,8 @@ TEST_CASE("Chartinfo manual constructor", "[chartinfo]") {
 
 TEST_CASE("ChartInfo default JSON parser", "[chartinfo]") {
     std::ifstream fp{ chartPath };
-    json j { json::parse(fp) };
-    rglib::ChartInfo c { j.get<rglib::ChartInfo>() };
+    json j{ json::parse(fp) };
+    rglib::ChartInfo c{ j.get<rglib::ChartInfo>() };
 
     REQUIRE(c.level == level);
     REQUIRE(c.author == author);
