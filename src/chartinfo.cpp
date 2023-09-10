@@ -19,10 +19,12 @@ void ChartInfo::save(fs::path saveDir, std::string_view filename, FileFormat son
 }
 
 void to_json(json& j, const ChartInfo& ci) {
-    j[constants::LEVEL_KEY] = ci.level;
-    j[constants::AUTHOR_KEY] = ci.author;
-    j[constants::DIFFICULTY_KEY] = ci.difficulty;
-    j[constants::TIMEINFO_KEY] = ci.timeinfo;
+    j = json{
+        { constants::LEVEL_KEY, ci.level },
+        { constants::AUTHOR_KEY, ci.author },
+        { constants::DIFFICULTY_KEY, ci.difficulty },
+        { constants::TIMEINFO_KEY, ci.timeinfo }
+    };
 }
 
 void from_json(const json& j, ChartInfo& ci) {

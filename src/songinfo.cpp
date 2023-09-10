@@ -40,14 +40,16 @@ void SongInfo::save(fs::path saveDir, std::string_view filename, FileFormat song
 }
 
 void to_json(json& j, const SongInfo& ti) {
-    j[constants::OFFSET_KEY] = ti.offsetMS;
-    j[constants::PREVIEW_START_KEY] = ti.previewStart;
-    j[constants::PREVIEW_STOP_KEY] = ti.previewStop;
-    j[constants::TITLE_KEY] = ti.title;
-    j[constants::ARTIST_KEY] = ti.artist;
-    j[constants::GENRE_KEY] = ti.genre;
-    j[constants::MUSIC_FILEPATH_KEY] = ti.musicFilepath;
-    j[constants::ART_FILEPATH_KEY] = ti.artFilepath;
+    j = json{
+        { constants::OFFSET_KEY, ti.offsetMS },
+        { constants::PREVIEW_START_KEY, ti.previewStart },
+        { constants::PREVIEW_STOP_KEY, ti.previewStop },
+        { constants::TITLE_KEY, ti.title },
+        { constants::ARTIST_KEY, ti.artist },
+        { constants::GENRE_KEY, ti.genre },
+        { constants::MUSIC_FILEPATH_KEY, ti.musicFilepath },
+        { constants::ART_FILEPATH_KEY, ti.artFilepath }
+    };
 }
 
 void from_json(const json& j, SongInfo& ti) {
