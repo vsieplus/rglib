@@ -85,7 +85,7 @@ namespace typingtempo {
 
     rglib::SongInfo loadSong(fs::path songInfoPath) {
         std::ifstream fp{ songInfoPath };
-        json j{ json::parse(fp) };
+        json j = json::parse(fp);
         rglib::SongInfo songinfo{ j.get<rglib::SongInfo>() };
 
         return songinfo;
