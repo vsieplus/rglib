@@ -40,7 +40,7 @@ TEST_CASE("SongInfo manual constructor", "[songinfo]") {
 
 TEST_CASE("SongInfo default JSON parser", "[songinfo]") {
     std::ifstream fp{ songInfoJSONPath };
-    json j{ json::parse(fp) };
+    json j = json::parse(fp);
     rglib::SongInfo s{ j.get<rglib::SongInfo>() };
 
     REQUIRE_THAT(s.previewStart, Catch::Matchers::WithinAbs(previewStart, rglib::constants::EPSILON));
