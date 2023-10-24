@@ -6,8 +6,9 @@
 
 **rglib** is a simple C++ library for rhythm game development, providing functionality for common tasks such as:
 
-* Parsing chart files
-* Calculating event, note timings
+* Parsing song and chart files
+* Calculating accurate note timings from tempo information
+* Tracking and updating song position in both time and beats
 
 ## Building and Installing
 
@@ -34,7 +35,37 @@ sudo cmake --install .
 
 ## Examples
 
-```cpp
+### Parsing a chart file
+
+```json
+{
+    "title": "Brain Power",
+    "artist": "NOMA",
+    "genre": "Hardcore",
+    "music": "brainpower.ogg",
+    "art": "brainpower.png",
+    "musicPreviewStart": 0.0,
+    "musicPreviewStop": 15.0,
+    "offset": 5
+}
 
 ```
 
+```cpp
+#include <rglib/rglib.h
+
+// ...
+
+std::ifstream fp{ "songinfo.json" };
+json j = json::parse(fp);
+rglib::SongInfo songinfo{ j.get<rglib::SongInfo>() };
+
+std::cout << "Title: " << songinfo.title << "\n";
+std::cout << "Artist: " << songinfo.artist << "\n";
+std::cout << "Genre: " << songinfo.genre << "\n";
+std::cout << "Offset: " << songinfo.offsetMS << "\n";
+std::cout << "Music Preview start: " << songinfo.previewStart << "\n";
+std::cout << "Music Preview stop: " << songinfo.previewStop << "\n";
+std::cout << "Music filepath: " << songinfo.musicFilepath << "\n";
+std::cout << "Art filepath: " << songinfo.artFilepath << "\n";
+```
