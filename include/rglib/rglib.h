@@ -4,6 +4,7 @@
 #include "rglib/beatpos.h"
 #include "rglib/chartinfo.h"
 #include "rglib/constants.h"
+#include "rglib/core.h"
 #include "rglib/fileformat.h"
 #include "rglib/notesplit.h"
 #include "rglib/section.h"
