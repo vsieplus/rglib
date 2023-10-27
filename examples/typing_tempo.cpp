@@ -11,9 +11,7 @@ namespace fs = std::filesystem;
 using json = nlohmann::json;
 using ordered_json = nlohmann::ordered_json;
 
-#include <rglib/chartinfo.h>
-#include <rglib/constants.h>
-#include <rglib/songinfo.h>
+#include <rglib/rglib.h>
 
 namespace constants {
     constexpr std::string_view KEY_KEY{ "key" };

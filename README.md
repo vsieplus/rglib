@@ -7,7 +7,8 @@
 **rglib** is a simple C++ library for rhythm game development, providing functionality for common tasks such as:
 
 * Parsing chart files
-* Calculating event, note timings
+* Calculating accurate note timings from tempo information
+* Tracking and updating song position in both time and beats
 
 ## Building and Installing
 
@@ -31,10 +32,3 @@ You can refer to the [CMake documentation](https://cmake.org/cmake/help/latest/m
 ```bash
 sudo cmake --install .
 ```
-
-## Examples
-
-```cpp
-
-```
-
